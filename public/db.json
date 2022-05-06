@@ -1,3 +1,64 @@
 {
-
+  "users": [
+    {
+      "id": "1",
+      "name": "Denis",
+      "login": "Denis",
+      "password": "a1234",
+      "contacts": [
+        {
+          "name": "Sergei 1",
+          "telephone": "89092073521"
+        },
+        {
+          "name": "Sergei 2",
+          "telephone": "89092073521"
+        },
+        {
+          "name": "Sergei 3",
+          "telephone": "89092073521"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Ivan",
+      "login": "Ivan",
+      "password": "b1234",
+      "contacts":  [
+        {
+          "name": "Denis 1",
+          "telephone": "89092073521"
+        },
+        {
+          "name": "Denis 2",
+          "telephone": "89092073521"
+        },
+        {
+          "name": "Denis 3",
+          "telephone": "89092073521"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Sergei",
+      "login": "Sergei",
+      "password": "c1234",
+      "contacts":  [
+        {
+          "name": "Ivan 1",
+          "telephone": "89092073521"
+        },
+        {
+          "name": "Ivan 2",
+          "telephone": "89092073521"
+        },
+        {
+          "name": "Ivan 3",
+          "telephone": "89092073521"
+        }
+      ]
+    }
+  ]
 }
