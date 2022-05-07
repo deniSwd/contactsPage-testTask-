@@ -11,7 +11,7 @@ export type FormValues = {
 export const Authorization: FC = () => {
   /* const count = useAppSelector(selectCount);
 const [incrementAmount, setIncrementAmount] = useState('2');*/
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   const inputError = useAppSelector(selectInputError)
 
   return (
