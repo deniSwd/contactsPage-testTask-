@@ -3,7 +3,7 @@ export type UsersType = Array<UserType>
 export type UserType = {
   id: string
   name: string
-  login: string
+  email: string
   password: string
   contacts: ContactsType
 }

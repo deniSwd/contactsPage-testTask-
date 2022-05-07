@@ -1,30 +1,31 @@
 import React, {FC} from 'react';
-import {useAppSelector} from "../../store/hooks";
-import {selectUsers} from "./myContactsSlice";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {selectUser, userExit} from "./myContactsSlice";
 
 export const MyContacts: FC = () => {
-  /* const count = useAppSelector(selectCount);
-   const dispatch = useAppDispatch();
-   const [incrementAmount, setIncrementAmount] = useState('2');*/
-  const users = useAppSelector(selectUsers)
+  /* const [incrementAmount, setIncrementAmount] = useState('2');*/
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser)
   return (
     <div>
       <div>
-        ALL USERS
+        CURRENT USER
       </div>
       <div>
-        {users != null && users.map((user) =>
+        {user != null &&
           <div>
-            <div> {user.name} </div>
+            <div>{user.name}</div>
             <div> {user.contacts.map((contact)=>
               <div>
                 <div>{contact.name}</div>
                 <div>{contact.telephone}</div>
               </div>
-              )}</div>
+              )}
+            </div>
           </div>
-        )}
+        }
       </div>
+      <button onClick={()=>dispatch(userExit())}>Exit</button>
     </div>
   );
 }

@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Denis",
-      "login": "Denis",
+      "email": "Denis@mail.ru",
       "password": "a1234",
       "contacts": [
         {
@@ -23,7 +23,7 @@
     {
       "id": "2",
       "name": "Ivan",
-      "login": "Ivan",
+      "email": "Ivan@mail.ru",
       "password": "b1234",
       "contacts":  [
         {
@@ -43,7 +43,7 @@
     {
       "id": "3",
       "name": "Sergei",
-      "login": "Sergei",
+      "email": "Sergei@mail.ru",
       "password": "c1234",
       "contacts":  [
         {
