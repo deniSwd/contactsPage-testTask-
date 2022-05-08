@@ -45,7 +45,7 @@ export const myContactsSlice = createSlice({
   },
 });
 
-export const {setCurrentUser, setUsers,setAddContactForm, userLogout, setUser} = myContactsSlice.actions;
+export const {setCurrentUser, setUsers, setAddContactForm, userLogout, setUser} = myContactsSlice.actions;
 export const selectAuthorization = (state: RootState) => state.contacts.isAuth;
 export const selectUser = (state: RootState) => state.contacts.currentUser;
 export const selectInputError = (state: RootState) => state.contacts.inputError;
@@ -57,15 +57,25 @@ export const getUsers = (): AppThunk => async (dispatch) => {
   dispatch(setUsers(currentUsers))
 }
 
-export const addNewUserContact = (userId,newContact): AppThunk => async (dispatch, getState) => {
+export const addNewUserContact = (userId: string, newContact: ContactType): AppThunk => async (dispatch, getState) => {
   const currentUser = getState().contacts.currentUser
-  if(!currentUser) return
+  if (!currentUser) return
   await userAPI.updateUser(userId, {...currentUser, contacts: [...currentUser.contacts, newContact]})
   const currentUsers = await userAPI.getUsers()
   dispatch(setUsers(currentUsers))
   dispatch(setUser(currentUsers.find(v => v.id === currentUser.id) ?? currentUser))
   dispatch(setAddContactForm(false))
 }
+export const deleteUserContact = (userId: string, contact: ContactType): AppThunk => async (dispatch, getState) => {
+  const currentUser = getState().contacts.currentUser
+  if (!currentUser) return
+  const changedContacts = currentUser.contacts.filter(c => c.name !== contact.name || c.telephone !== contact.telephone)
+  await userAPI.updateUser(userId, {...currentUser, contacts: changedContacts})
+  const currentUsers = await userAPI.getUsers()
+  dispatch(setUsers(currentUsers))
+  dispatch(setUser(currentUsers.find(v => v.id === currentUser.id) ?? currentUser))
+}
+
 
 export default myContactsSlice.reducer;
 

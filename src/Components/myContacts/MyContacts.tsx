@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {selectAddContactForm, selectUser, setAddContactForm, userLogout} from "./myContactsSlice";
+import {deleteUserContact, selectAddContactForm, selectUser, setAddContactForm, userLogout} from "./myContactsSlice";
 import {NewContactForm} from './NewContactForm';
 
 export const MyContacts: FC = () => {
@@ -23,8 +23,9 @@ export const MyContacts: FC = () => {
             <button onClick={() => dispatch(setAddContactForm(true))}>Add contact</button>}
             <div> {user.contacts.map((contact, i: number) =>
               <div key={i}>
-                <div>{contact.name}</div>
-                <div>{contact.telephone}</div>
+                <div>NAME: {contact.name}</div>
+                <div>TEL.: {contact.telephone}</div>
+                <button onClick={() => dispatch(deleteUserContact(user.id, contact))}>Delete</button>
               </div>
             )}
             </div>

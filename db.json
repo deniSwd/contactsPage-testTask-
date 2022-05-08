@@ -7,36 +7,16 @@
       "password": "a1234",
       "contacts": [
         {
-          "name": "Sergei 1",
-          "telephone": "89092073521"
+          "name": "Iuliia",
+          "telephone": "89056769553"
         },
         {
-          "name": "Sergei 2",
-          "telephone": "89092073521"
+          "name": "d2",
+          "telephone": "10"
         },
         {
-          "name": "Sergei 3",
-          "telephone": "89092073521"
-        },
-        {
-          "name": "Petr",
-          "telephone": "89012052143"
-        },
-        {
-          "name": "Vasiliy",
-          "telephone": "89051236745"
-        },
-        {
-          "name": "Ivan",
-          "telephone": "89067893423"
-        },
-        {
-          "name": "Petr 2",
-          "telephone": "89067894521"
-        },
-        {
-          "name": "Ivan 2",
-          "telephone": "89056764521"
+          "name": "d2",
+          "telephone": "11"
         }
       ]
     },
@@ -48,10 +28,6 @@
       "contacts": [
         {
           "name": "Denis 1",
-          "telephone": "89092073521"
-        },
-        {
-          "name": "Denis 2",
           "telephone": "89092073521"
         },
         {
