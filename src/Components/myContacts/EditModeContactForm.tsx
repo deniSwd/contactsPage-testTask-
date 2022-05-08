@@ -10,15 +10,18 @@ export type NewContactFormValues = {
 }
 type PropsType ={
   userId: string
+  name: string
+  telephone: string
+  setEditMode: (boolean) => void
 }
 
-export const NewContactForm: FC<PropsType> = ({userId}) => {
+export const EditModeContactForm: FC<PropsType> = ({userId,name,telephone,setEditMode}) => {
   const dispatch = useAppDispatch()
 
   return (
     <div>
       <Formik
-        initialValues={{name: '', telephone: ''}}
+        initialValues={{name: name, telephone: telephone}}
         validate={values => {
           const errors: FormikErrors<NewContactFormValues> = {};
           if (!values.name) {
@@ -32,6 +35,7 @@ export const NewContactForm: FC<PropsType> = ({userId}) => {
         onSubmit={(values, {setSubmitting}) => {
           dispatch(addNewUserContact(userId,values))
           setSubmitting(false)
+          setEditMode(false);
         }}
       >
         {({isSubmitting}) => (
@@ -46,7 +50,7 @@ export const NewContactForm: FC<PropsType> = ({userId}) => {
             </div>
             <div>
               <button type="submit" disabled={isSubmitting} >
-                Add contact
+                Accept changes
               </button>
             </div>
           </Form>

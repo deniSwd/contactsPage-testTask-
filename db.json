@@ -27,10 +27,6 @@
       "password": "b1234",
       "contacts": [
         {
-          "name": "Denis 1",
-          "telephone": "89092073521"
-        },
-        {
           "name": "Denis 3",
           "telephone": "89092073521"
         },
@@ -39,8 +35,8 @@
           "telephone": "89092073523"
         },
         {
-          "name": "Den 38",
-          "telephone": "89092073556"
+          "name": "Denis 5",
+          "telephone": "89092073523"
         }
       ]
     },
