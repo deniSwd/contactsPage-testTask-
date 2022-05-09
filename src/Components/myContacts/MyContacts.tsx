@@ -27,7 +27,7 @@ export const MyContacts: FC = () => {
         <div>
             <div>{user.name}</div>
           {contactForm ?
-            <NewContactForm userId={user.id}/> :
+            <NewContactForm userId={user.id} contacts = {user.contacts}/> :
             <button onClick={() => dispatch(setAddContactForm(true))}>Add contact</button>}
             <div> {user.contacts.map((contact, i: number) =>
               <div key={i}>

@@ -1,7 +1,7 @@
 import {useAppDispatch} from "../../store/hooks";
 import React, {FC} from "react";
 import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
-import {addNewUserContact} from "./myContactsSlice";
+import {addNewUserContact, editUserContact} from "./myContactsSlice";
 
 
 export type NewContactFormValues = {
@@ -33,7 +33,7 @@ export const EditModeContactForm: FC<PropsType> = ({userId,name,telephone,setEdi
           return errors;
         }}
         onSubmit={(values, {setSubmitting}) => {
-          dispatch(addNewUserContact(userId,values))
+          dispatch(editUserContact(userId,values,name,telephone))
           setSubmitting(false)
           setEditMode(false);
         }}
