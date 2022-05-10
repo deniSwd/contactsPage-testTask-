@@ -30,6 +30,10 @@ export const NewContactForm: FC<PropsType> = ({userId,contacts}) => {
           }
           if (!values.telephone) {
             errors.telephone = 'Required'
+          } else if (
+            !/^8\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(values.telephone)
+          ) {
+            errors.telephone = 'Input telephone in format 8(xxx)xxx-xx-xx';
           }
           if (sameContact) {
             errors.sameContact = 'This contact already exists'
@@ -51,7 +55,6 @@ export const NewContactForm: FC<PropsType> = ({userId,contacts}) => {
               TEL.: <Field type="telephone" name="telephone"/>
               <ErrorMessage name="telephone" component="div"/>
             </div>
-            <ErrorMessage name="sameContact" component="div"/>
             <div>{(errors as FormikErrors<NewContactFormValues>).sameContact}</div>
             <div>
               <button type="submit" disabled={isSubmitting} >

@@ -29,6 +29,10 @@ export const EditModeContactForm: FC<PropsType> = ({userId,name,telephone,setEdi
           }
           if (!values.telephone) {
             errors.telephone = 'Required'
+          } else if (
+            !/^8\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}$/.test(values.telephone)
+          ) {
+            errors.telephone = 'Input telephone in format 8(xxx)xxx-xx-xx';
           }
           return errors;
         }}

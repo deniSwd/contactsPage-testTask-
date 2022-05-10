@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk, RootState} from '../../store/store';
 import {userAPI} from "../../API/api";
 import {ContactType, UsersType, UserType} from "../../MainTypes";
-import {FormValues} from "../authorization/Autorization";
+import {FormValues} from "../authorization/Authorization";
 
 export interface ContactsState {
   isAuth: boolean

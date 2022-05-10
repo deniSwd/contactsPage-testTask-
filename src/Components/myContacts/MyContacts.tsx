@@ -4,6 +4,7 @@ import {deleteUserContact, selectAddContactForm, selectUser, setAddContactForm, 
 import {NewContactForm} from './NewContactForm';
 import {ContactType} from "../../MainTypes";
 import {EditModeContactForm} from "./EditModeContactForm";
+import s from'./myContacts.module.scss'
 
 export const MyContacts: FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -18,39 +19,36 @@ export const MyContacts: FC = () => {
   }
 
   return (
-    <div>
+    <div className={s.contactPage}>
+      {user != null &&
       <div>
-        CURRENT USER
-      </div>
-      <div>
-        {user != null &&
-        <div>
-            <div>{user.name}</div>
-          {contactForm ?
-            <NewContactForm userId={user.id} contacts = {user.contacts}/> :
-            <button onClick={() => dispatch(setAddContactForm(true))}>Add contact</button>}
-            <div> {user.contacts.map((contact, i: number) =>
-              <div key={i}>
-                {editMode && editContact && editContact.name === contact.name
-                && editContact.telephone === contact.telephone ?
-                  <EditModeContactForm userId={user.id}
-                                       name={contact.name}
-                                       telephone={contact.telephone}
-                                       setEditMode={setEditMode}/> :
-                  <div>
-                    <div>NAME: {contact.name}</div>
-                    <div>TEL.: {contact.telephone}</div>
-                  </div>}
-                <span>
+          <div className={s.title}>
+              <h1>Current user - {user.name}</h1>
+          </div>
+        {contactForm ?
+          <NewContactForm userId={user.id} contacts={user.contacts}/> :
+          <button onClick={() => dispatch(setAddContactForm(true))}>Add contact</button>}
+          <div> {user.contacts.map((contact, i: number) =>
+            <div key={i}>
+              {editMode && editContact && editContact.name === contact.name
+              && editContact.telephone === contact.telephone ?
+                <EditModeContactForm userId={user.id}
+                                     name={contact.name}
+                                     telephone={contact.telephone}
+                                     setEditMode={setEditMode}/> :
+                <div>
+                  <div>NAME: {contact.name}</div>
+                  <div>TEL.: {contact.telephone}</div>
+                </div>}
+              <span>
                   <button onClick={() => editModeButton(contact)}>Edit contact</button>
                  <button onClick={() => dispatch(deleteUserContact(user.id, contact))}>Delete</button>
                 </span>
-              </div>
-            )}
             </div>
-        </div>
-        }
+          )}
+          </div>
       </div>
+      }
       <button onClick={() => dispatch(userLogout())}>Logout</button>
     </div>
   )
