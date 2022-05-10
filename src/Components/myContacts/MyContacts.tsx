@@ -1,10 +1,9 @@
 import React, {FC, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {deleteUserContact, selectAddContactForm, selectUser, setAddContactForm, userLogout} from "./myContactsSlice";
-import {NewContactForm} from './NewContactForm';
 import {ContactType} from "../../MainTypes";
-import {EditModeContactForm} from "./EditModeContactForm";
-import s from'./myContacts.module.scss'
+import s from './myContacts.module.scss'
+import {GeneralForm} from "./GeneralForm";
 
 export const MyContacts: FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -25,17 +24,23 @@ export const MyContacts: FC = () => {
           <div className={s.title}>
               <h1>Current user - {user.name}</h1>
           </div>
-        {contactForm ?
-          <NewContactForm userId={user.id} contacts={user.contacts}/> :
+        {contactForm ? <GeneralForm userId={user.id}
+                       contacts={user.contacts}
+                       addNewContact={true}
+                       buttonName={'Add contact'}
+                       name={''}
+                       telephone={''}/> :
           <button onClick={() => dispatch(setAddContactForm(true))}>Add contact</button>}
           <div> {user.contacts.map((contact, i: number) =>
             <div key={i}>
-              {editMode && editContact && editContact.name === contact.name
+              {editMode && editContact?.name === contact.name
               && editContact.telephone === contact.telephone ?
-                <EditModeContactForm userId={user.id}
-                                     name={contact.name}
-                                     telephone={contact.telephone}
-                                     setEditMode={setEditMode}/> :
+                <GeneralForm userId={user.id}
+                             name={contact.name}
+                             telephone={contact.telephone}
+                             setEditMode={setEditMode}
+                             buttonName={'Accept changes'}
+                             editContact={true}/> :
                 <div>
                   <div>NAME: {contact.name}</div>
                   <div>TEL.: {contact.telephone}</div>

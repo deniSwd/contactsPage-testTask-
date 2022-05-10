@@ -48,9 +48,9 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
               <Field type="email"
                      name="email">
                 {({field}) =>
-                <Input {...field}
-                       className={s.inputField}
-                       status={errors.email ? 'error' : ''}/>}
+                  <Input {...field}
+                         className={s.inputField}
+                         status={errors.email ? 'error' : ''}/>}
               </Field>
               <ErrorMessage name="email" component="div" className={s.errorMessage}/>
             </div>

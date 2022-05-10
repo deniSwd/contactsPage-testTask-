@@ -21,10 +21,3 @@ export const App: FC = () => {
     </div>
   )
 }
-/*  const a = useAppSelector(selectCount)
-  const dispatch = useAppDispatch()
-    <div onClick={()=>{
-    dispatch(incrementByAmount(3))
-  }}>
-  My contacts
-  </div>*/

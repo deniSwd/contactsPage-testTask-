@@ -1,30 +1,35 @@
-import {useAppDispatch} from "../../store/hooks";
-import React, {FC} from "react";
-import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
-import {addNewUserContact} from "./myContactsSlice";
 import {ContactsType} from "../../MainTypes";
+import React, {FC} from "react";
+import {useAppDispatch} from "../../store/hooks";
+import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
+import {addNewUserContact, editUserContact} from "./myContactsSlice";
 
-
-export type NewContactFormValues = {
+export type GeneralFormValues = {
   name: string
   telephone: string
   sameContact: string
 }
-type PropsType ={
+
+type PropsType = {
   userId: string
-  contacts: ContactsType
+  contacts?: ContactsType
+  name: string
+  telephone: string
+  setEditMode?: (boolean) => void
+  addNewContact?: boolean
+  editContact?: boolean
+  buttonName: string
 }
 
-export const NewContactForm: FC<PropsType> = ({userId,contacts}) => {
+export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, setEditMode, addNewContact, editContact, buttonName}) => {
   const dispatch = useAppDispatch()
-
   return (
     <div>
       <Formik
-        initialValues={{name: '', telephone: ''}}
+        initialValues={{name: name, telephone: telephone}}
         validate={values => {
-          const sameContact = contacts.find((c => c.name === values.name && c.telephone === values.telephone))
-          const errors: FormikErrors<NewContactFormValues> = {}
+          const sameContact =  contacts?.find((c => c.name === values.name && c.telephone === values.telephone))
+          const errors: FormikErrors<GeneralFormValues> = {}
           if (!values.name) {
             errors.name = 'Required'
           }
@@ -41,8 +46,10 @@ export const NewContactForm: FC<PropsType> = ({userId,contacts}) => {
           return errors;
         }}
         onSubmit={(values, {setSubmitting}) => {
-          dispatch(addNewUserContact(userId,values))
+          addNewContact && dispatch(addNewUserContact(userId, values))
+          editContact && dispatch(editUserContact(userId, values, name, telephone))
           setSubmitting(false)
+          setEditMode && setEditMode(false)
         }}
       >
         {({isSubmitting, errors}) => (
@@ -55,10 +62,10 @@ export const NewContactForm: FC<PropsType> = ({userId,contacts}) => {
               TEL.: <Field type="telephone" name="telephone"/>
               <ErrorMessage name="telephone" component="div"/>
             </div>
-            <div>{(errors as FormikErrors<NewContactFormValues>).sameContact}</div>
+            <div>{(errors as FormikErrors<GeneralFormValues>).sameContact}</div>
             <div>
-              <button type="submit" disabled={isSubmitting} >
-                Add contact
+              <button type="submit" disabled={isSubmitting}>
+                {buttonName}
               </button>
             </div>
           </Form>
