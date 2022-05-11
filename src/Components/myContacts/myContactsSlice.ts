@@ -41,6 +41,7 @@ export const myContactsSlice = createSlice({
     },
     userLogout: (state) => {
       state.isAuth = false
+      state.inputError = false
     }
   },
 });

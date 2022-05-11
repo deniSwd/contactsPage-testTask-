@@ -40,8 +40,8 @@ export const MyContacts: FC = () => {
             }
           </div>
           <div className={s.contactValues} >
-              <div>NAME</div>
-              <div>TELEPHONE</div>
+              <div className={s.name}>NAME</div>
+              <div className={s.tel}>TELEPHONE</div>
           </div>
           <div> {user.contacts.map((contact, i: number) =>
             <div key={i} className={s.contacts}>
@@ -59,7 +59,7 @@ export const MyContacts: FC = () => {
                 </div>
               }
               <div>
-                <div className={s.button}>
+                <div className={s.buttons}>
                   <Button size='large' icon={<EditOutlined />} type='ghost'
                           onClick={() => editModeButton(contact)} />
                   <Button size='large' icon={<CloseOutlined />} type='ghost'
@@ -71,7 +71,10 @@ export const MyContacts: FC = () => {
           </div>
       </div>
       }
-      <Button type='primary' onClick={() => dispatch(userLogout())}>Logout</Button>
+      <div className={s.logoutButton}>
+        <Button type='primary' size='large'
+                onClick={() => dispatch(userLogout())}>Logout</Button>
+      </div>
     </div>
   )
 }
