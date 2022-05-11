@@ -4,6 +4,8 @@ import {deleteUserContact, selectAddContactForm, selectUser, setAddContactForm, 
 import {ContactType} from "../../MainTypes";
 import s from './myContacts.module.scss'
 import {GeneralForm} from "./GeneralForm";
+import {CloseOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button} from "antd";
 
 export const MyContacts: FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -19,20 +21,30 @@ export const MyContacts: FC = () => {
 
   return (
     <div className={s.contactPage}>
+      {contactForm && <div className={s.background}/>}
       {user != null &&
       <div>
-          <div className={s.title}>
-              <h1>Current user - {user.name}</h1>
+          <div className={s.header}>
+              <h2>Current user - {user.name}</h2>
+            {contactForm ? <div className={s.addForm}><GeneralForm userId={user.id}
+                                                                   contacts={user.contacts}
+                                                                   addNewContact={true}
+                                                                   buttonName={'Add contact'}
+                                                                   name={''}
+                                                                   telephone={''}/></div> :
+              <div className={s.addButton}>
+                <div className={s.buttonName}>Add contact</div>
+                <Button type='primary' shape='circle' icon={<PlusOutlined/>} size='large'
+                        onClick={() => dispatch(setAddContactForm(true))}/>
+              </div>
+            }
           </div>
-        {contactForm ? <GeneralForm userId={user.id}
-                       contacts={user.contacts}
-                       addNewContact={true}
-                       buttonName={'Add contact'}
-                       name={''}
-                       telephone={''}/> :
-          <button onClick={() => dispatch(setAddContactForm(true))}>Add contact</button>}
+          <div className={s.contactValues} >
+              <div>NAME</div>
+              <div>TELEPHONE</div>
+          </div>
           <div> {user.contacts.map((contact, i: number) =>
-            <div key={i}>
+            <div key={i} className={s.contacts}>
               {editMode && editContact?.name === contact.name
               && editContact.telephone === contact.telephone ?
                 <GeneralForm userId={user.id}
@@ -41,20 +53,25 @@ export const MyContacts: FC = () => {
                              setEditMode={setEditMode}
                              buttonName={'Accept changes'}
                              editContact={true}/> :
-                <div>
-                  <div>NAME: {contact.name}</div>
-                  <div>TEL.: {contact.telephone}</div>
-                </div>}
-              <span>
-                  <button onClick={() => editModeButton(contact)}>Edit contact</button>
-                 <button onClick={() => dispatch(deleteUserContact(user.id, contact))}>Delete</button>
-                </span>
+                <div className={s.contact}>
+                    <div className={s.contactName}>{contact.name}</div>
+                    <div className={s.contactTel}> {contact.telephone}</div>
+                </div>
+              }
+              <div>
+                <div className={s.button}>
+                  <Button size='large' icon={<EditOutlined />} type='ghost'
+                          onClick={() => editModeButton(contact)} />
+                  <Button size='large' icon={<CloseOutlined />} type='ghost'
+                          onClick={() => dispatch(deleteUserContact(user.id, contact))} />
+                </div>
+              </div>
             </div>
           )}
           </div>
       </div>
       }
-      <button onClick={() => dispatch(userLogout())}>Logout</button>
+      <Button type='primary' onClick={() => dispatch(userLogout())}>Logout</Button>
     </div>
   )
 }

@@ -39,7 +39,7 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
           setSubmitting(false);
         }}
       >
-        {({isSubmitting, submitForm, errors}) => (
+        {({isSubmitting, submitForm, errors, touched}) => (
           <Form className={s.mainForm}>
             <div className={s.field}>
               <div className={s.fieldName}>
@@ -50,7 +50,7 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
                 {({field}) =>
                   <Input {...field}
                          className={s.inputField}
-                         status={errors.email ? 'error' : ''}/>}
+                         status={errors.email && touched.email ? 'error' : ''}/>}
               </Field>
               <ErrorMessage name="email" component="div" className={s.errorMessage}/>
             </div>
@@ -63,7 +63,7 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
                 {({field}) =>
                   <Input.Password {...field}
                                   className={s.inputField}
-                                  status={errors.password ? 'error' : ''}/>}
+                                  status={errors.password && touched.password ? 'error' : ''}/>}
               </Field>
               <ErrorMessage name="password" component="div" className={s.errorMessage}/>
               {inputError && <div className={s.incorrectValuesMessage}>Incorrect login or password</div>}

@@ -2,7 +2,9 @@ import {ContactsType} from "../../MainTypes";
 import React, {FC} from "react";
 import {useAppDispatch} from "../../store/hooks";
 import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
-import {addNewUserContact, editUserContact} from "./myContactsSlice";
+import {addNewUserContact, editUserContact, setAddContactForm} from "./myContactsSlice";
+import {CloseCircleOutlined, CloseOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button} from "antd";
 
 export type GeneralFormValues = {
   name: string
@@ -54,6 +56,9 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
       >
         {({isSubmitting, errors}) => (
           <Form>
+            {addNewContact &&
+            <Button type='ghost' shape='circle' icon={<CloseOutlined />} size='small'
+                                      onClick={() => dispatch(setAddContactForm(false))}/>}
             <div>
               NAME: <Field type="name" name="name"/>
               <ErrorMessage name="name" component="div"/>
