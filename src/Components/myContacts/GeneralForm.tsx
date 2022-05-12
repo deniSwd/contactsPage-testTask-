@@ -3,8 +3,10 @@ import React, {FC} from "react";
 import {useAppDispatch} from "../../store/hooks";
 import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
 import {addNewUserContact, editUserContact, setAddContactForm} from "./myContactsSlice";
-import {CloseCircleOutlined, CloseOutlined, PlusOutlined} from "@ant-design/icons";
-import {Button} from "antd";
+import e from './editGeneralForm.module.scss'
+import a from '.././authorization/authorization.module.scss'
+import {CloseOutlined} from "@ant-design/icons";
+import {Button, Input} from "antd";
 
 export type GeneralFormValues = {
   name: string
@@ -25,12 +27,13 @@ type PropsType = {
 
 export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, setEditMode, addNewContact, editContact, buttonName}) => {
   const dispatch = useAppDispatch()
+  const style = addNewContact ? a : e
   return (
     <div>
       <Formik
         initialValues={{name: name, telephone: telephone}}
         validate={values => {
-          const sameContact =  contacts?.find((c => c.name === values.name && c.telephone === values.telephone))
+          const sameContact = contacts?.find((c => c.name === values.name && c.telephone === values.telephone))
           const errors: FormikErrors<GeneralFormValues> = {}
           if (!values.name) {
             errors.name = 'Required'
@@ -54,24 +57,48 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
           setEditMode && setEditMode(false)
         }}
       >
-        {({isSubmitting, errors}) => (
-          <Form>
+        {({isSubmitting, errors, touched, submitForm}) => (
+          <Form className={style.generalForm}>
             {addNewContact &&
-            <Button type='ghost' shape='circle' icon={<CloseOutlined />} size='small'
-                                      onClick={() => dispatch(setAddContactForm(false))}/>}
-            <div>
-              NAME: <Field type="name" name="name"/>
-              <ErrorMessage name="name" component="div"/>
+            <div className={style.closeAddFormButton}>
+                <Button type='ghost' shape='circle' icon={<CloseOutlined/>} size='small'
+                        onClick={() => dispatch(setAddContactForm(false))}/>
+            </div>}
+            <div className={style.field}>
+              {addNewContact &&
+              <div className={style.fieldName}>
+                  NAME:
+              </div>}
+              <Field type="name" name="name">
+                {({field}) =>
+                  <Input {...field}
+                         className={style.inputField}
+                         status={errors.name && touched.name ? 'error' : ''}/>}
+              </Field>
+              <ErrorMessage name="name" component="div" className={style.errorMessage}/>
+            </div>
+            <div className={style.field}>
+              {addNewContact &&
+              <div className={style.fieldName}>
+                  TEL.:
+              </div>}
+              <Field type="telephone" name="telephone">
+                {({field}) =>
+                  <Input {...field}
+                         className={style.inputField}
+                         status={errors.telephone && touched.telephone ? 'error' : ''}/>}
+              </Field>
+              <ErrorMessage name="telephone" component="div" className={style.errorMessage}/>
+              <div className={style.incorrectValuesMessage}>
+                {(errors as FormikErrors<GeneralFormValues>).sameContact}
+              </div>
             </div>
             <div>
-              TEL.: <Field type="telephone" name="telephone"/>
-              <ErrorMessage name="telephone" component="div"/>
-            </div>
-            <div>{(errors as FormikErrors<GeneralFormValues>).sameContact}</div>
-            <div>
-              <button type="submit" disabled={isSubmitting}>
-                {buttonName}
-              </button>
+              <div className={style.button}>
+                <Button type='primary' disabled={isSubmitting} onClick={submitForm}>
+                  {buttonName}
+                </Button>
+              </div>
             </div>
           </Form>
         )}

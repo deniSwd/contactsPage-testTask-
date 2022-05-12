@@ -40,13 +40,12 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
         }}
       >
         {({isSubmitting, submitForm, errors, touched}) => (
-          <Form className={s.mainForm}>
+          <Form className={s.generalForm}>
             <div className={s.field}>
               <div className={s.fieldName}>
                 EMAIL:
               </div>
-              <Field type="email"
-                     name="email">
+              <Field type="email" name="email">
                 {({field}) =>
                   <Input {...field}
                          className={s.inputField}
@@ -58,8 +57,7 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
               <div className={s.fieldName}>
                 PASSWORD:
               </div>
-              <Field type="password"
-                     name="password">
+              <Field type="password" name="password">
                 {({field}) =>
                   <Input.Password {...field}
                                   className={s.inputField}
