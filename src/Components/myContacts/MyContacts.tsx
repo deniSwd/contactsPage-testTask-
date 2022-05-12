@@ -29,7 +29,6 @@ export const MyContacts: FC = () => {
             {contactForm ? <div className={s.addForm}><GeneralForm userId={user.id}
                                                                    contacts={user.contacts}
                                                                    addNewContact={true}
-                                                                   buttonName={'Add contact'}
                                                                    name={''}
                                                                    telephone={''}/></div> :
               <div className={s.addButton}>
@@ -39,7 +38,7 @@ export const MyContacts: FC = () => {
               </div>
             }
           </div>
-          <div className={s.contactValues} >
+          <div className={s.contactHeader} >
               <div className={s.name}>NAME</div>
               <div className={s.tel}>TELEPHONE</div>
           </div>
@@ -48,24 +47,24 @@ export const MyContacts: FC = () => {
               {editMode && editContact?.name === contact.name
               && editContact.telephone === contact.telephone ?
                 <GeneralForm userId={user.id}
+                             contacts={user.contacts}
                              name={contact.name}
                              telephone={contact.telephone}
                              setEditMode={setEditMode}
-                             buttonName={'Accept changes'}
                              editContact={true}/> :
-                <div className={s.contact}>
+                <div className={s.contactValues}>
+                  <div className={s.contact}>
                     <div className={s.contactName}>{contact.name}</div>
                     <div className={s.contactTel}> {contact.telephone}</div>
+                  </div>
+                  <div className={s.buttons}>
+                    <Button size='large' icon={<EditOutlined />} type='ghost'
+                            onClick={() => editModeButton(contact)} />
+                    <Button size='large' icon={<CloseOutlined />} type='ghost'
+                            onClick={() => dispatch(deleteUserContact(user.id, contact))} />
+                  </div>
                 </div>
               }
-              <div>
-                <div className={s.buttons}>
-                  <Button size='large' icon={<EditOutlined />} type='ghost'
-                          onClick={() => editModeButton(contact)} />
-                  <Button size='large' icon={<CloseOutlined />} type='ghost'
-                          onClick={() => dispatch(deleteUserContact(user.id, contact))} />
-                </div>
-              </div>
             </div>
           )}
           </div>

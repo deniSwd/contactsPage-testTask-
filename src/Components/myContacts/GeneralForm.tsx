@@ -5,7 +5,7 @@ import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
 import {addNewUserContact, editUserContact, setAddContactForm} from "./myContactsSlice";
 import e from './editGeneralForm.module.scss'
 import a from '.././authorization/authorization.module.scss'
-import {CloseOutlined} from "@ant-design/icons";
+import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 import {Button, Input} from "antd";
 
 export type GeneralFormValues = {
@@ -22,12 +22,14 @@ type PropsType = {
   setEditMode?: (boolean) => void
   addNewContact?: boolean
   editContact?: boolean
-  buttonName: string
 }
 
-export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, setEditMode, addNewContact, editContact, buttonName}) => {
+export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, setEditMode, addNewContact, editContact}) => {
   const dispatch = useAppDispatch()
   const style = addNewContact ? a : e
+  const closeEditMode = () => {
+    setEditMode?.(false)
+  }
   return (
     <div>
       <Formik
@@ -54,7 +56,7 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
           addNewContact && dispatch(addNewUserContact(userId, values))
           editContact && dispatch(editUserContact(userId, values, name, telephone))
           setSubmitting(false)
-          setEditMode && setEditMode(false)
+          setEditMode?.(false)
         }}
       >
         {({isSubmitting, errors, touched, submitForm}) => (
@@ -93,12 +95,16 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
                 {(errors as FormikErrors<GeneralFormValues>).sameContact}
               </div>
             </div>
-            <div>
-              <div className={style.button}>
-                <Button type='primary' disabled={isSubmitting} onClick={submitForm}>
-                  {buttonName}
-                </Button>
+            <div className={style.button}>
+              {addNewContact &&
+              <Button type='primary' disabled={isSubmitting} onClick={submitForm}>Add contact</Button>}
+              {editContact &&
+              <div>
+                  <Button size='large' icon={<CheckOutlined/>} type='ghost' disabled={isSubmitting}
+                          onClick={submitForm}/>
+                  <Button size='large' icon={<CloseOutlined/>} type='ghost' onClick={closeEditMode}/>
               </div>
+              }
             </div>
           </Form>
         )}
