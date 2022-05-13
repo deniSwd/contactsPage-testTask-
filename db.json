@@ -11,14 +11,6 @@
           "telephone": "8(905)676-95-48"
         },
         {
-          "name": "d2",
-          "telephone": "8(748)855-11-11"
-        },
-        {
-          "name": "aaa",
-          "telephone": "8(905)453-25-17"
-        },
-        {
           "name": "sed",
           "telephone": "8(960)478-84-89"
         },
@@ -27,12 +19,12 @@
           "telephone": "8(906)845-86-45"
         },
         {
-          "name": "vasia",
-          "telephone": "8(962)451-52-66"
+          "name": "Vasia Ivanov",
+          "telephone": "8(962)451-52-68"
         },
         {
-          "name": "vasia 2",
-          "telephone": "8(962)451-52-68"
+          "name": "Ivan Vasilev",
+          "telephone": "8(908)458-85-87"
         }
       ]
     },
@@ -57,6 +49,14 @@
         {
           "name": "Denis 5",
           "telephone": "8(909)207-35-26"
+        },
+        {
+          "name": "Doom",
+          "telephone": "8(909)207-85-79"
+        },
+        {
+          "name": "React",
+          "telephone": "8(888)888-88-78"
         }
       ]
     },
@@ -79,8 +79,8 @@
           "telephone": "8(901)745-56-52"
         },
         {
-          "name": "ivan 55",
-          "telephone": "8(905)458-87-36"
+          "name": "den1258",
+          "telephone": "8(901)745-56-53"
         }
       ]
     }

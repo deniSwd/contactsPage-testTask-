@@ -14,7 +14,7 @@ export const MyContacts: FC = () => {
   const user = useAppSelector(selectUser)
   const contactForm = useAppSelector(selectAddContactForm)
 
-  const editModeButton = (editContact) => {
+  const editModeButton = (editContact: ContactType) => {
     setEditContact(editContact)
     setEditMode(true)
   }
@@ -26,42 +26,43 @@ export const MyContacts: FC = () => {
       <div>
           <div className={s.header}>
               <h2>Current user - {user.name}</h2>
-            {contactForm ? <div className={s.addForm}><GeneralForm userId={user.id}
-                                                                   contacts={user.contacts}
-                                                                   addNewContact={true}
-                                                                   name={''}
-                                                                   telephone={''}/></div> :
+            {contactForm ?
+              <div className={s.addForm}>
+                <GeneralForm userId={user.id}
+                             contacts={user.contacts}
+                             addNewContact={true}
+                             name={''}
+                             telephone={''}/></div> :
               <div className={s.addButton}>
                 <div className={s.buttonName}>Add contact</div>
-                <Button type='primary' shape='circle' icon={<PlusOutlined/>} size='large'
-                        onClick={() => dispatch(setAddContactForm(true))}/>
+                <Button type='primary' shape='circle' icon={<PlusOutlined/>}
+                        size='large' onClick={() => dispatch(setAddContactForm(true))}/>
               </div>
             }
           </div>
-          <div className={s.contactHeader} >
+          <div className={s.contactHeader}>
               <div className={s.name}>NAME</div>
               <div className={s.tel}>TELEPHONE</div>
           </div>
           <div> {user.contacts.map((contact, i: number) =>
             <div key={i} className={s.contacts}>
-              {editMode && editContact?.name === contact.name
-              && editContact.telephone === contact.telephone ?
+            {editMode && editContact && editContact.id === contact.id ?
                 <GeneralForm userId={user.id}
                              contacts={user.contacts}
                              name={contact.name}
                              telephone={contact.telephone}
                              setEditMode={setEditMode}
-                             editContact={true}/> :
+                             editContact ={editContact}/> :
                 <div className={s.contactValues}>
                   <div className={s.contact}>
                     <div className={s.contactName}>{contact.name}</div>
                     <div className={s.contactTel}> {contact.telephone}</div>
                   </div>
                   <div className={s.buttons}>
-                    <Button size='large' icon={<EditOutlined />} type='ghost'
-                            onClick={() => editModeButton(contact)} />
-                    <Button size='large' icon={<CloseOutlined />} type='ghost'
-                            onClick={() => dispatch(deleteUserContact(user.id, contact))} />
+                    <Button size='large' icon={<EditOutlined/>} type='ghost'
+                            onClick={() => editModeButton(contact)}/>
+                    <Button size='large' icon={<CloseOutlined/>} type='ghost'
+                            onClick={() => dispatch(deleteUserContact(user.id, contact))}/>
                   </div>
                 </div>
               }

@@ -67,7 +67,7 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
               {inputError && <div className={s.incorrectValuesMessage}>Incorrect login or password</div>}
             </div>
             <div className={s.button}>
-              <Button type="primary" disabled={isSubmitting} onClick={submitForm}>
+              <Button type="primary" disabled={isSubmitting || Object.keys(errors).length > 0} onClick={submitForm}>
                 Submit
               </Button>
             </div>

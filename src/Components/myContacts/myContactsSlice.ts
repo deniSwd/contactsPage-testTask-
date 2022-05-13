@@ -53,7 +53,6 @@ export const selectInputError = (state: RootState) => state.contacts.inputError
 export const selectAddContactForm = (state: RootState) => state.contacts.addContactForm
 
 
-
 export const getUsers = (): AppThunk => async (dispatch) => {
   const currentUsers = await userAPI.getUsers()
   dispatch(setUsers(currentUsers))
@@ -71,7 +70,7 @@ export const addNewUserContact = (userId: string, newContact: ContactType): AppT
 export const deleteUserContact = (userId: string, contact: ContactType): AppThunk => async (dispatch, getState) => {
   const currentUser = getState().contacts.currentUser
   if (!currentUser) return
-  const changedContacts = currentUser.contacts.filter(c => c.name !== contact.name || c.telephone !== contact.telephone)
+  const changedContacts = currentUser.contacts.filter(c => c.id !== contact.id)
   await userAPI.updateUser(userId, {...currentUser, contacts: changedContacts})
   const currentUsers = await userAPI.getUsers()
   dispatch(setUsers(currentUsers))

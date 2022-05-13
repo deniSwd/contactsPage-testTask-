@@ -1,4 +1,4 @@
-import {ContactsType} from "../../MainTypes";
+import {ContactsType, ContactType} from "../../MainTypes";
 import React, {FC} from "react";
 import {useAppDispatch} from "../../store/hooks";
 import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
@@ -21,7 +21,7 @@ type PropsType = {
   telephone: string
   setEditMode?: (boolean) => void
   addNewContact?: boolean
-  editContact?: boolean
+  editContact?: ContactType
 }
 
 export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, setEditMode, addNewContact, editContact}) => {
@@ -35,10 +35,17 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
       <Formik
         initialValues={{name: name, telephone: telephone}}
         validate={values => {
-          const sameContact = contacts?.find((c => c.name === values.name && c.telephone === values.telephone))
+          const sameContact =
+            contacts?.find((c =>
+              c.name === values.name
+              && c.telephone === values.telephone
+              && c.id !== editContact?.id
+            ))
           const errors: FormikErrors<GeneralFormValues> = {}
           if (!values.name) {
             errors.name = 'Required'
+          } else if (values.name.length > 15){
+            errors.name = 'Max length - 15'
           }
           if (!values.telephone) {
             errors.telephone = 'Required'
@@ -56,7 +63,7 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
           addNewContact && dispatch(addNewUserContact(userId, values))
           editContact && dispatch(editUserContact(userId, values, name, telephone))
           setSubmitting(false)
-          setEditMode?.(false)
+          closeEditMode()
         }}
       >
         {({isSubmitting, errors, touched, submitForm}) => (
@@ -74,10 +81,10 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
               <Field type="name" name="name">
                 {({field}) =>
                   <Input {...field}
-                         className={style.inputField}
+                         className={style.inputFieldName}
                          status={errors.name && touched.name ? 'error' : ''}/>}
               </Field>
-              <ErrorMessage name="name" component="div" className={style.errorMessage}/>
+              <ErrorMessage name="name" component="div" className={style.errorMessageNameField}/>
             </div>
             <div className={style.field}>
               {addNewContact &&
@@ -87,19 +94,22 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
               <Field type="telephone" name="telephone">
                 {({field}) =>
                   <Input {...field}
-                         className={style.inputField}
+                         className={style.inputFieldTel}
                          status={errors.telephone && touched.telephone ? 'error' : ''}/>}
               </Field>
-              <ErrorMessage name="telephone" component="div" className={style.errorMessage}/>
+              <ErrorMessage name="telephone" component="div" className={style.errorMessageTelField}/>
               <div className={style.incorrectValuesMessage}>
                 {(errors as FormikErrors<GeneralFormValues>).sameContact}
               </div>
             </div>
-            <div className={style.button}>
+            <div>
               {addNewContact &&
-              <Button type='primary' disabled={isSubmitting} onClick={submitForm}>Add contact</Button>}
+              <div className={style.button}>
+                  <Button type='primary' disabled={isSubmitting } onClick={submitForm}>Add contact</Button>
+              </div>
+              }
               {editContact &&
-              <div>
+              <div className={style.button}>
                   <Button size='large' icon={<CheckOutlined/>} type='ghost' disabled={isSubmitting}
                           onClick={submitForm}/>
                   <Button size='large' icon={<CloseOutlined/>} type='ghost' onClick={closeEditMode}/>
