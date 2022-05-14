@@ -7,16 +7,12 @@
       "password": "a1234",
       "contacts": [
         {
-          "name": "Iuliia",
-          "telephone": "8(905)676-95-48"
-        },
-        {
-          "name": "sed",
-          "telephone": "8(960)478-84-89"
+          "name": "Jet Brains",
+          "telephone": "8(960)110-00-11"
         },
         {
           "name": "rus",
-          "telephone": "8(906)845-86-45"
+          "telephone": "8(906)110-00-10"
         },
         {
           "name": "Vasia Ivanov",
@@ -24,7 +20,15 @@
         },
         {
           "name": "Ivan Vasilev",
-          "telephone": "8(908)458-85-87"
+          "telephone": "8(908)358-85-87"
+        },
+        {
+          "name": "James Anderson",
+          "telephone": "8(555)110-00-01"
+        },
+        {
+          "name": "Julia",
+          "telephone": "8(905)676-95-50"
         }
       ]
     },
@@ -35,28 +39,28 @@
       "password": "b1234",
       "contacts": [
         {
-          "name": "Denis 3",
-          "telephone": "8(909)207-35-21"
+          "name": "React",
+          "telephone": "8(888)888-88-88"
         },
         {
-          "name": "Denis 4",
+          "name": "Redux",
           "telephone": "8(909)207-35-23"
         },
         {
-          "name": "Denis 5",
+          "name": "ReduxToolkit",
           "telephone": "8(909)207-35-24"
         },
         {
-          "name": "Denis 5",
+          "name": "TypeScript",
           "telephone": "8(909)207-35-26"
         },
         {
-          "name": "Doom",
+          "name": "Git",
           "telephone": "8(909)207-85-79"
         },
         {
-          "name": "React",
-          "telephone": "8(888)888-88-78"
+          "name": "Denis K.",
+          "telephone": "8(909)207-35-21"
         }
       ]
     },
@@ -81,6 +85,10 @@
         {
           "name": "den1258",
           "telephone": "8(901)745-56-53"
+        },
+        {
+          "name": "Denis K.",
+          "telephone": "8(909)207-35-21"
         }
       ]
     }

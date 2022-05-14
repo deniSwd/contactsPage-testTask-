@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {selectInputError, setCurrentUser} from '../myContacts/myContactsSlice';
+import {selectInputError, setCurrentUser} from '../../store/slices/myContactsSlice';
 import {ErrorMessage, Field, Form, Formik, FormikErrors} from 'formik';
 import {Button, Input} from "antd";
 import s from './authorization.module.scss'
@@ -11,8 +11,7 @@ export type FormValues = {
 }
 
 export const Authorization: FC = () => {
-  /* const count = useAppSelector(selectCount);
-const [incrementAmount, setIncrementAmount] = useState('2');*/
+
   const dispatch = useAppDispatch()
   const inputError = useAppSelector(selectInputError)
 
@@ -75,5 +74,5 @@ const [incrementAmount, setIncrementAmount] = useState('2');*/
         )}
       </Formik>
     </div>
-  );
+  )
 }

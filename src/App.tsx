@@ -4,7 +4,7 @@ import s from './app.module.scss'
 import {MyContacts} from "./Components/myContacts/MyContacts";
 import {Authorization} from "./Components/authorization/Authorization";
 import {useAppDispatch, useAppSelector} from "./store/hooks";
-import {getUsers, selectAuthorization} from "./Components/myContacts/myContactsSlice";
+import {getUsers, selectAuthorization} from "./store/slices/myContactsSlice";
 
 
 export const App: FC = () => {

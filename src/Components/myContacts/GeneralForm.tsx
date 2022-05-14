@@ -1,8 +1,8 @@
-import {ContactsType, ContactType} from "../../MainTypes";
+import {ContactType, UserType} from "../../MainTypes";
 import React, {FC} from "react";
 import {useAppDispatch} from "../../store/hooks";
 import {ErrorMessage, Field, Form, Formik, FormikErrors} from "formik";
-import {addNewUserContact, editUserContact, setAddContactForm} from "./myContactsSlice";
+import {addNewUserContact, editUserContact, setAddContactForm} from "../../store/slices/myContactsSlice";
 import e from './editGeneralForm.module.scss'
 import a from '.././authorization/authorization.module.scss'
 import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
@@ -15,8 +15,7 @@ export type GeneralFormValues = {
 }
 
 type PropsType = {
-  userId: string
-  contacts?: ContactsType
+  user: UserType
   name: string
   telephone: string
   setEditMode?: (boolean) => void
@@ -24,7 +23,7 @@ type PropsType = {
   editContact?: ContactType
 }
 
-export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, setEditMode, addNewContact, editContact}) => {
+export const GeneralForm: FC<PropsType> = ({user, name, telephone, setEditMode, addNewContact, editContact}) => {
   const dispatch = useAppDispatch()
   const style = addNewContact ? a : e
   const closeEditMode = () => {
@@ -36,7 +35,7 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
         initialValues={{name: name, telephone: telephone}}
         validate={values => {
           const sameContact =
-            contacts?.find((c =>
+            user.contacts.find((c =>
               c.name === values.name
               && c.telephone === values.telephone
               && c.id !== editContact?.id
@@ -60,8 +59,8 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
           return errors;
         }}
         onSubmit={(values, {setSubmitting}) => {
-          addNewContact && dispatch(addNewUserContact(userId, values))
-          editContact && dispatch(editUserContact(userId, values, name, telephone))
+          addNewContact && dispatch(addNewUserContact(user.id, values))
+          editContact && dispatch(editUserContact(user.id, values, name, telephone))
           setSubmitting(false)
           closeEditMode()
         }}
@@ -120,5 +119,5 @@ export const GeneralForm: FC<PropsType> = ({userId, contacts, name, telephone, s
         )}
       </Formik>
     </div>
-  );
+  )
 }

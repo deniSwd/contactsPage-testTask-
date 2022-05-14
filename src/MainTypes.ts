@@ -10,7 +10,7 @@ export type UserType = {
 export type ContactsType = Array<ContactType>
 
 export type ContactType = {
-  id?: number,
+  id?: number
   name: string
   telephone: string
 }

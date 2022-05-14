@@ -14,7 +14,7 @@ export const userAPI = {
     })
   },
   async updateUser(userId: string, user: UserType) {
-    return instance.put(`/users/${userId}`, {
+    await instance.put(`/users/${userId}`, {
       ...user,
       contacts: user.contacts.map(contact => ({name: contact.name, telephone: contact.telephone}))
     })

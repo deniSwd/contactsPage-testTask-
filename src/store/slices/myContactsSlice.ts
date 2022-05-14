@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AppThunk, RootState} from '../../store/store';
+import {AppThunk, RootState} from '../store';
 import {userAPI} from "../../API/api";
 import {ContactType, UsersType, UserType} from "../../MainTypes";
-import {FormValues} from "../authorization/Authorization";
+import {FormValues} from "../../Components/authorization/Authorization";
 
 export interface ContactsState {
   isAuth: boolean
@@ -53,18 +53,17 @@ export const selectInputError = (state: RootState) => state.contacts.inputError
 export const selectAddContactForm = (state: RootState) => state.contacts.addContactForm
 
 
-export const getUsers = (): AppThunk => async (dispatch) => {
+export const getUsers = (currentUser?: UserType): AppThunk => async (dispatch) => {
   const currentUsers = await userAPI.getUsers()
   dispatch(setUsers(currentUsers))
+  currentUser && dispatch(setUser(currentUsers.find(v => v.id === currentUser.id) ?? currentUser))
 }
 
 export const addNewUserContact = (userId: string, newContact: ContactType): AppThunk => async (dispatch, getState) => {
   const currentUser = getState().contacts.currentUser
   if (!currentUser) return
   await userAPI.updateUser(userId, {...currentUser, contacts: [...currentUser.contacts, newContact]})
-  const currentUsers = await userAPI.getUsers()
-  dispatch(setUsers(currentUsers))
-  dispatch(setUser(currentUsers.find(v => v.id === currentUser.id) ?? currentUser))
+  dispatch(getUsers(currentUser))
   dispatch(setAddContactForm(false))
 }
 export const deleteUserContact = (userId: string, contact: ContactType): AppThunk => async (dispatch, getState) => {
@@ -72,22 +71,18 @@ export const deleteUserContact = (userId: string, contact: ContactType): AppThun
   if (!currentUser) return
   const changedContacts = currentUser.contacts.filter(c => c.id !== contact.id)
   await userAPI.updateUser(userId, {...currentUser, contacts: changedContacts})
-  const currentUsers = await userAPI.getUsers()
-  dispatch(setUsers(currentUsers))
-  dispatch(setUser(currentUsers.find(v => v.id === currentUser.id) ?? currentUser))
+  dispatch(getUsers(currentUser))
 }
 
-export const editUserContact = (userId: string, contact: ContactType, name: string, telephone: string): AppThunk =>
+export const editUserContact = (userId: string, newContactValue: ContactType, name: string, telephone: string): AppThunk =>
   async (dispatch, getState) => {
     const currentUser = getState().contacts.currentUser
     if (!currentUser) return
     const currentUserContacts = [...getState().contacts.currentUser?.contacts ?? []]
     const changedContactIndex = currentUserContacts.findIndex(i => i.name === name && i.telephone === telephone)
-    changedContactIndex !== -1 && (currentUserContacts[changedContactIndex] = contact)
+    changedContactIndex !== -1 && (currentUserContacts[changedContactIndex] = newContactValue)
     await userAPI.updateUser(userId, {...currentUser, contacts: currentUserContacts})
-    const currentUsers = await userAPI.getUsers()
-    dispatch(setUsers(currentUsers))
-    dispatch(setUser(currentUsers.find(v => v.id === currentUser.id) ?? currentUser))
+    dispatch(getUsers(currentUser))
   }
 
 export default myContactsSlice.reducer;
