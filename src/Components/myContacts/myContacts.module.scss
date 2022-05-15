@@ -25,12 +25,14 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
-    .userName{
+
+    .userName {
       display: flex;
       align-items: center;
       font-size: 25px;
     }
-    .searchField{
+
+    .searchField {
       display: flex;
       align-items: center;
       width: 260px;
@@ -55,6 +57,7 @@
       }
     }
   }
+
   .notFound {
     display: flex;
     justify-content: center;
@@ -88,12 +91,13 @@
 
   .contacts {
 
-    .contactValues{
+    .contactValues {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 60px;
       border-bottom: 1px solid lightgray;
+
       .contact {
         display: flex;
         width: 100%;
@@ -112,6 +116,7 @@
           width: 60%;
         }
       }
+
       .buttons {
         display: flex;
 

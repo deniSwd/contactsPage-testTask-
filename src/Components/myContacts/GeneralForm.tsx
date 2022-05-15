@@ -36,14 +36,14 @@ export const GeneralForm: FC<PropsType> = ({user, name, telephone, setEditMode, 
         validate={values => {
           const sameContact =
             user.contacts.find((c =>
-              c.name === values.name
-              && c.telephone === values.telephone
-              && c.id !== editContact?.id
+                c.name === values.name
+                && c.telephone === values.telephone
+                && c.id !== editContact?.id
             ))
           const errors: FormikErrors<GeneralFormValues> = {}
           if (!values.name) {
             errors.name = 'Required'
-          } else if (values.name.length > 15){
+          } else if (values.name.length > 15) {
             errors.name = 'Max length - 15'
           }
           if (!values.telephone) {
@@ -104,7 +104,7 @@ export const GeneralForm: FC<PropsType> = ({user, name, telephone, setEditMode, 
             <div>
               {addNewContact &&
               <div className={style.button}>
-                  <Button type='primary' disabled={isSubmitting } onClick={submitForm}>Add contact</Button>
+                  <Button type='primary' disabled={isSubmitting} onClick={submitForm}>Add contact</Button>
               </div>
               }
               {editContact &&

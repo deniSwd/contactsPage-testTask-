@@ -12,12 +12,12 @@ export const App: FC = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(getUsers())
-  },[])
+  }, [])
 
   const userStatus = useAppSelector(selectAuthorization)
   return (
     <div className={s.content}>
-      { userStatus ? <MyContacts/> : <Authorization/>}
+      {userStatus ? <MyContacts/> : <Authorization/>}
     </div>
   )
 }
