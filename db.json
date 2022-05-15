@@ -27,8 +27,12 @@
           "telephone": "8(555)110-00-01"
         },
         {
+          "name": "alex",
+          "telephone": "8(809)897-25-25"
+        },
+        {
           "name": "Julia",
-          "telephone": "8(905)676-95-50"
+          "telephone": "8(905)676-95-56"
         }
       ]
     },
@@ -44,11 +48,11 @@
         },
         {
           "name": "Redux",
-          "telephone": "8(909)207-35-23"
+          "telephone": "8(909)207-35-24"
         },
         {
           "name": "ReduxToolkit",
-          "telephone": "8(909)207-35-24"
+          "telephone": "8(909)207-35-36"
         },
         {
           "name": "TypeScript",
@@ -56,7 +60,7 @@
         },
         {
           "name": "Git",
-          "telephone": "8(909)207-85-79"
+          "telephone": "8(909)207-85-80"
         },
         {
           "name": "Denis K.",
@@ -72,14 +76,14 @@
       "contacts": [
         {
           "name": "Ivan 1",
-          "telephone": "8(909)207-35-21"
+          "telephone": "8(909)207-35-33"
         },
         {
           "name": "Ivan 333",
-          "telephone": "8(909)207-35-21"
+          "telephone": "8(909)207-35-44"
         },
         {
-          "name": "den1258",
+          "name": "den1259",
           "telephone": "8(901)745-56-52"
         },
         {
@@ -89,6 +93,10 @@
         {
           "name": "Denis K.",
           "telephone": "8(909)207-35-21"
+        },
+        {
+          "name": "Denis V.",
+          "telephone": "8(745)854-95-52"
         }
       ]
     }

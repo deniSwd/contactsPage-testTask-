@@ -1,19 +1,26 @@
 import React, {FC, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {selectAddContactForm, selectUser, setAddContactForm, userLogout} from "../../store/slices/myContactsSlice";
-import {ContactType} from "../../MainTypes";
 import s from './myContacts.module.scss'
 import {GeneralForm} from "./GeneralForm";
 import {PlusOutlined} from "@ant-design/icons";
 import {Button} from "antd";
-import {ContactValuesField} from "./ContactValuesField";
+import Search from "antd/lib/input/Search";
+import {DisplayingContacts} from "./DisplayingContacts";
 
 export const MyContacts: FC = () => {
-  const [editMode, setEditMode] = useState<boolean>(false);
-  const [editContact, setEditContact] = useState<ContactType | null>(null);
+
+  const [value, setSearchValue] = useState<string>('')
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
   const contactForm = useAppSelector(selectAddContactForm)
+  const onSearch = (value: string) => {
+    setSearchValue(value)
+  }
+  const displayingContacts = user?.contacts.filter(v =>
+    value.length > 0 ?
+      v.name.toLowerCase().startsWith(value.toLowerCase()) ||
+      v.telephone.toLowerCase().startsWith(value.toLowerCase()) : true)
 
   return (
     <div className={s.contactPage}>
@@ -21,7 +28,12 @@ export const MyContacts: FC = () => {
       {user != null &&
       <div>
           <div className={s.header}>
-              <h2>Current user - {user.name}</h2>
+              <div className={s.userName}>
+                  Current user - {user.name}
+              </div>
+              <div className={s.searchField}>
+                  <Search placeholder="input search text" allowClear onSearch={onSearch}/>
+              </div>
             {contactForm ?
               <div className={s.addForm}>
                 <GeneralForm user={user}
@@ -42,24 +54,10 @@ export const MyContacts: FC = () => {
               <div className={s.name}>NAME</div>
               <div className={s.tel}>TELEPHONE</div>
           </div>
-          <div> {user.contacts.map((contact, i: number) =>
-            <div key={i} className={s.contacts}>
-              {
-                editMode &&
-                editContact &&
-                editContact.id === contact.id ?
-                  <GeneralForm user={user}
-                               name={contact.name}
-                               telephone={contact.telephone}
-                               setEditMode={setEditMode}
-                               editContact={editContact}/> :
-                  <ContactValuesField contact={contact}
-                                      userId={user.id}
-                                      setEditMode={setEditMode}
-                                      setEditContact={setEditContact}/>
-              }
-            </div>
-          )}
+          <div> {displayingContacts && displayingContacts.length > 0
+            ? <DisplayingContacts displayingContacts={displayingContacts} user={user}/>
+            : <div className={s.notFound}> NOT FOUND </div>
+          }
           </div>
       </div>
       }
